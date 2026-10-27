@@ -50,24 +50,44 @@
       color: #4b5563;
     }
 
-    button {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    button,
+    .btn-link {
+      display: inline-block;
       border: none;
       border-radius: 10px;
       padding: 12px 28px;
       font-size: 15px;
       font-weight: 500;
+      font-family: inherit;
+      line-height: normal;
       color: #ffffff;
       background: #3b82f6;
       cursor: pointer;
+      text-decoration: none;
       transition: background 0.2s ease, transform 0.1s ease;
     }
 
-    button:hover {
+    button:hover,
+    .btn-link:hover {
       background: #2563eb;
     }
 
-    button:active {
+    button:active,
+    .btn-link:active {
       transform: scale(0.98);
+    }
+
+    .btn-link:focus-visible,
+    button:focus-visible {
+      outline: 2px solid #93c5fd;
+      outline-offset: 2px;
     }
 
     #message {
@@ -83,9 +103,11 @@
   <main class="card">
     <h1>你好，欢迎</h1>
     <p>这是一个简单的主页，有一点内容，但不多。</p>
-    <button id="greetBtn">点我一下</button>
+    <div class="actions">
+      <button id="greetBtn">点我一下</button>
+      <a class="btn-link" href="https://github.com/X-yx-86/vp" target="_blank" rel="noopener noreferrer">访问项目主页</a>
+    </div>
     <div id="message"></div>
-    <button id="greetBtn" hrre="https://github.com/X-yx-86/vp/tree/main">去我仓库</button>
   </main>
 
   <script>
